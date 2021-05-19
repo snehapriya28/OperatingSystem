@@ -1,0 +1,66 @@
+//Reading process
+Wait(ind); 
+     if(liv_writers == 0 && const_writers == 0)
+     {
+      Signal(get_set);  
+      liv_readers = liv_readers + 1; 
+     }  
+     else
+     {
+       const_readers = const_readers + 1; 
+     }
+
+  Signal(ind);
+   Wait(get_set);  
+
+
+   /*
+
+
+   READ THE DATA IN CRITICAL SECTION
+
+
+   */
+
+   Wait(ind);
+   liv_readers = liv_readers - 1; 
+   if(liv_readers == 0 && const_writers>0)
+   {
+    while(const_writers > 0)
+    {
+       liv_writers = liv_writers+1;  
+       const_writers = const_writers-1;
+       Signal(out_set);  
+    }
+   }
+   Signal(ind);
+
+
+//Writing Processes:
+
+  Wait(ind); 
+     if(liv_readers == 0 && const_readers == 0)
+     {
+       Signal(out_set);  
+       liv_writers = liv_writers + 1; 
+     }
+
+    else
+    {
+       const_writers = const_writers + 1; 
+    }
+
+  Signal(ind);
+   Wait(out_set); 
+   Wait(ind);
+   liv_writers = liv_writers -1; 
+   if(liv_writers == 0 && const_readers>0)
+   {
+    while(const_readers > 0)
+    {
+       liv_readers = liv_readers+1;  
+       const_readers = const_readers-1;
+       Signal(get_set);  
+    }
+   }
+   Signal(ind);
