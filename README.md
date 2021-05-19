@@ -26,7 +26,10 @@ In file StarveFreeRWCode.txt is the code for the Reader's Writers problem that i
 
 In the following solution, three semaphores are used as explained below:
 
-get_set : it is a semaphore that reading processes sleep upon. A Reading process starts reading in the critical section only when get_set signals, until then it waits.
-out_set : it is a semaphore that writing processes sleep upon. A writing process starts reading in the critical section only when out_set signals, until then it waits.
-ind : it a mutex semaphore for controlled access to the following variables --> liv_writers, const_writers, liv_readers, const_readers.
+1.get_set : it is a semaphore that reading processes sleep upon. A Reading process starts reading in the critical section only when get_set signals, until then it waits.
+
+2.out_set : it is a semaphore that writing processes sleep upon. A writing process starts reading in the critical section only when out_set signals, until then it waits.
+
+3.ind : it a mutex semaphore for controlled access to the following variables --> liv_writers, const_writers, liv_readers, const_readers.
+
 The variables of liv_writers, const_writers, liv_readers, const_readers are used for counting the number of currently waiting and active processes.
