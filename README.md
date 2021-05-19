@@ -14,12 +14,13 @@ The solution can be visualised by imagining a dressing room and two benches outs
 Psuedo code :
 
 Reader Processes:
-
+```
 if(active and waiting writers are zero) signal and enter the process else wait for signal
 
 //Read
 
 if( is the last reader) signal the waiting writers
+```
 The writer process will be analogous to the reader process.
 
 In file StarveFreeRWCode.txt is the code for the Reader's Writers problem that is deadlock-free and starvation free.
